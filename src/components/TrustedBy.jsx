@@ -3,12 +3,6 @@ import { company_logos } from '../assets/assets'
 import { motion } from "framer-motion";
 
 const TrustedBy = () => {
-  {/* 
-    FIX: If you only have 3 logos, duplicating once isn't enough to fill the track.
-    Multiplying by 4 ensures a seamless, infinite ribbon loop with zero visual snapping gaps.
-  */}
-  const marqueeLogos = [...company_logos, ...company_logos, ...company_logos, ...company_logos];
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -28,38 +22,59 @@ const TrustedBy = () => {
       </motion.h3>
 
       {/* 
-        FIX: Marquee width is now constrained to be VERY SMALL.
-        `max-w-xs` on mobile, `max-w-md` on tablet, and `max-w-xl` on desktop. 
+        We use mask-image to fade the edges. This works independently of the background color,
+        completely resolving the white/dark block issue.
       */}
-      <div className="relative w-full max-w-xs sm:max-w-md md:max-w-xl mx-auto overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-12 before:bg-gradient-to-r before:from-white before:to-transparent dark:before:from-gray-950 after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-12 after:bg-gradient-to-l after:from-white after:to-transparent dark:after:from-gray-950">
-        
+      <div className="relative w-full max-w-xs sm:max-w-md md:max-w-xl mx-auto overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_48px,black_calc(100%-48px),transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_48px,black_calc(100%-48px),transparent)]">
         <motion.div 
-          className="flex gap-16 sm:gap-24 items-center whitespace-nowrap w-max px-4"
-          animate={{ x: [0, "-25%"] }} // Adjusted to -25% matching our 4x array multiplier loop
+          className="flex w-max"
+          animate={{ x: [0, "-50%"] }}
           transition={{
             ease: "linear",
-            duration: 12, // Faster speed baseline since the physical track length is now very narrow
+            duration: 16,
             repeat: Infinity,
           }}
         >
-          {marqueeLogos.map((logo, index) => {
-            const isAirbnb = typeof logo === 'string' && logo.toLowerCase().includes('airbnb');
-            
-            return (
-              <img
-                key={index} 
-                src={logo} 
-                alt="Partner Company Logo" 
-                className={`w-auto object-contain opacity-70 dark:opacity-60 hover:opacity-100 dark:hover:opacity-100 transition-opacity duration-300 shrink-0 ${
-                  isAirbnb 
-                    ? 'h-11 sm:h-14 mx-2' // Premium standout sizing for Airbnb
-                    : 'h-8 sm:h-10'        // Big scaling for your other two assets
-                }`}
-              />
-            );
-          })}
-        </motion.div>
+          {/* List 1 */}
+          <div className="flex gap-16 sm:gap-24 items-center px-8 sm:px-12">
+            {company_logos.map((logo, index) => {
+              const isAirbnb = typeof logo === 'string' && logo.toLowerCase().includes('airbnb');
+              
+              return (
+                <img
+                  key={index} 
+                  src={logo} 
+                  alt="Partner Company Logo" 
+                  className={`w-auto object-contain opacity-70 dark:opacity-60 hover:opacity-100 dark:hover:opacity-100 transition-opacity duration-300 shrink-0 ${
+                    isAirbnb 
+                      ? 'h-11 sm:h-14 mx-2'
+                      : 'h-8 sm:h-10'
+                  }`}
+                />
+              );
+            })}
+          </div>
 
+          {/* List 2 */}
+          <div className="flex gap-16 sm:gap-24 items-center px-8 sm:px-12">
+            {company_logos.map((logo, index) => {
+              const isAirbnb = typeof logo === 'string' && logo.toLowerCase().includes('airbnb');
+              
+              return (
+                <img
+                  key={index} 
+                  src={logo} 
+                  alt="Partner Company Logo" 
+                  className={`w-auto object-contain opacity-70 dark:opacity-60 hover:opacity-100 dark:hover:opacity-100 transition-opacity duration-300 shrink-0 ${
+                    isAirbnb 
+                      ? 'h-11 sm:h-14 mx-2'
+                      : 'h-8 sm:h-10'
+                  }`}
+                />
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </motion.div>
   )

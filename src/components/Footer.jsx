@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import assets from "../assets/assets";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 const Footer = ({ theme }) => {
+  const [email, setEmail] = useState("");
+  const emailRef = useRef(null);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -65,14 +69,42 @@ const Footer = ({ theme }) => {
             The latest news, articles, and resources, sent to your inbox weekly.
           </p>
 
-          <div className="flex gap-2 text-sm">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full p-3 text-sm outline-none rounded-3xl dark:text-gray-200 bg-transparent border border-gray-300 dark:border-gray-500"
-            />
-            <button className="bg-primary text-white rounded-3xl px-6">
-              Susbcribe
+          <div className="flex gap-2 text-sm w-full max-w-sm">
+            <div className="relative w-full">
+              <input
+                ref={emailRef}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="w-full p-3 text-sm outline-none rounded-3xl text-gray-900 dark:text-gray-200 bg-transparent border border-gray-300 dark:border-gray-500 focus:border-indigo-500 dark:focus:border-indigo-400 placeholder-gray-400 transition-colors"
+              />
+              {email && (
+                <button
+                  type="button"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer"
+                  onClick={() => {
+                    setEmail("");
+                    emailRef.current?.focus();
+                  }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                </button>
+              )}
+            </div>
+            <button 
+              type="button"
+              onClick={() => {
+                if (email) {
+                  toast.success("Subscribed successfully!");
+                  setEmail("");
+                } else {
+                  toast.error("Please enter your email.");
+                }
+              }}
+              className=" bg-gray-900 text-white dark:bg-white dark:text-gray-900 rounded-3xl px-6 cursor-pointer hover:scale-102 active:scale-98 transition-all duration-200"
+            >
+              Subscribe
             </button>
           </div>
         </motion.div>

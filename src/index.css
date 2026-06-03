@@ -7,9 +7,54 @@
 *{
   font-family: "Manrope", sans-serif;
   font-weight: 500;
-  cursor: none;
+}
+
+body.custom-cursor-active,
+body.custom-cursor-active * {
+  cursor: none !important;
 }
 
 @theme {
   --color-primary: #5044E5;
+}
+
+/* Custom Scrollbar Styles following Theme Context */
+:root {
+  --scrollbar-thumb: rgba(80, 68, 229, 0.25);
+  --scrollbar-thumb-hover: rgba(80, 68, 229, 0.45);
+  color-scheme: light;
+}
+
+html {
+  background-color: #ffffff;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+  scrollbar-width: thin;
+}
+
+html.dark {
+  --scrollbar-thumb: rgba(255, 255, 255, 0.25);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.45);
+  color-scheme: dark;
+  background-color: #000000;
+}
+
+/* Webkit Scrollbar overrides for Chrome/Safari/Edge */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
 }

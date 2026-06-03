@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import assets from '../assets/assets'
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -92,15 +92,31 @@ const Hero = () => {
     offset: ["start start", "end start"]
   });
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
-  const imageRotate = useTransform(scrollYProgress, [0, 1], [0, -3]);
+  
+  // Tablet animation scroll transforms
+  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], isMobile ? [0.7, 0.9] : [1.05, 1]);
+  const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
     <div 
       ref={containerRef}
       id='hero' 
-      className='relative flex flex-col items-center gap-6 pt-28 pb-20 md:pt-40 md:pb-32 px-4 sm:px-12 lg:px-24 xl:px-40 text-center w-full overflow-hidden bg-white dark:bg-gray-950 text-gray-800 dark:text-white transition-colors duration-500'
+      className='relative flex flex-col items-center gap-6 pt-28 pb-32 md:pt-40 md:pb-48 px-4 sm:px-12 lg:px-24 xl:px-40 text-center w-full overflow-hidden bg-white dark:bg-gray-950 text-gray-800 dark:text-white transition-colors duration-500'
     >
       {/* 3D Kinetic Mesh Canvas Component Injection */}
       <Ambient3DBackground />
@@ -136,9 +152,9 @@ const Hero = () => {
           className='text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[84px] font-extrabold tracking-tight leading-[1.1] xl:leading-[92px]'
         >
           Turning imagination into{" "}
-          <span className='relative bg-gradient-to-r from-[#5044E5] via-[#7c72f1] to-[#4d8cea] bg-clip-text text-transparent inline-block font-black'>
+          <span className='relative bg-gradient-to-r from-[#5044E5] via-[#7c72f1] to-[#4d8cea] bg-clip-text text-transparent inline-block font-black pb-[0.12em]'>
             digital
-            <span className="absolute bottom-1 left-0 w-full h-[4px] bg-gradient-to-r from-[#5044E5] to-[#4d8cea] opacity-30 rounded-full blur-[1px]" />
+            <span className="absolute bottom-[0.12em] left-0 w-full h-[4px] bg-gradient-to-r from-[#5044E5] to-[#4d8cea] opacity-30 rounded-full blur-[1px]" />
           </span>{" "}
           impact.
         </motion.h1>
@@ -154,28 +170,35 @@ const Hero = () => {
         </motion.p>
       </motion.div>
 
-      {/* 3D Perspective Graphic Showcase Stage */}
-      <motion.div 
-        style={{ y: imageY, rotateX: imageRotate }}
-        initial={{ opacity: 0, y: 60, scale: 0.95, perspective: 1200 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ type: "spring", stiffness: 50, damping: 14, delay: 0.5 }}
-        className="relative w-full max-w-5xl mt-8 z-10 pointer-events-auto group perspective-1200"
+      {/* 3D Perspective Graphic Showcase Stage (Tablet Scroll Animation) */}
+      <div 
+        className="w-full relative mt-10 md:mt-16"
+        style={{
+          perspective: "1000px",
+        }}
       >
-        {/* Ambient Outer Under-Glow Neon aura */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-[#5044E5] to-[#4d8cea] rounded-xl md:rounded-2xl opacity-15 dark:opacity-25 blur-xl group-hover:opacity-30 dark:group-hover:opacity-40 transition-opacity duration-700 pointer-events-none" />
+        <motion.div
+          style={{
+            rotateX: rotate,
+            scale: scale,
+            translateY: translate,
+            boxShadow:
+              "0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003",
+          }}
+          className="max-w-5xl mx-auto h-[20rem] sm:h-[30rem] md:h-[40rem] w-full border-4 border-[#6C6C6C] p-1.5 md:p-6 bg-[#222222] rounded-[20px] md:rounded-[30px] shadow-2xl relative z-10 pointer-events-auto"
+        >
+          {/* Ambient Outer Under-Glow Neon aura */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-[#5044E5] to-[#4d8cea] rounded-[20px] md:rounded-[30px] opacity-15 dark:opacity-25 blur-xl pointer-events-none z-[-1]" />
 
-        {/* Showcase Core Mockup Window Frame */}
-        <div className="relative overflow-hidden rounded-xl md:rounded-2xl border border-gray-200/60 dark:border-gray-800/80 bg-white dark:bg-gray-950 shadow-[0_20px_50px_rgba(0,0,0,0.08)] dark:shadow-[0_30px_70px_rgba(0,0,0,0.6)] backdrop-blur-sm transform transition-transform duration-500 ease-out group-hover:scale-[1.005]">
-          {/* Subtle Glass Highlight Overlay Reflection */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent pointer-events-none z-20" />
-          
-          <img 
-            src={assets.hero_img} 
-            alt="Product Platform Showcase Dashboard" 
-            className='w-full h-auto object-cover block'
-          />
-        </div>
+          <div className="h-full w-full overflow-hidden rounded-xl md:rounded-2xl bg-gray-100 dark:bg-zinc-900 p-1 md:p-4">
+            <img 
+              src={assets.hero_img} 
+              alt="Product Platform Showcase Dashboard" 
+              className='w-full h-full object-cover object-left-top rounded-lg md:rounded-xl block'
+              draggable={false}
+            />
+          </div>
+        </motion.div>
 
         {/* Auxiliary Vector Asset - Clean Fallback integration */}
         <img 
@@ -183,7 +206,7 @@ const Hero = () => {
           alt="" 
           className='absolute -top-32 -right-32 sm:-top-80 sm:-right-60 z-[-2] dark:hidden hidden sm:block pointer-events-none opacity-50' 
         />
-      </motion.div>
+      </div>
     </div>
   )
 }

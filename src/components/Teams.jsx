@@ -6,7 +6,7 @@ const Teams = () => {
   // Hardcoded team data based on your request
   const teamData = [
     { name: "Vivek", title: "Founder & Fullstack Dev", image: "https://www.sandbyte.site/assets/karan.svg" },
-    { name: "Abhik", title: "Head of Development", image: "https://www.sandbyte.site/assets/marcel.svg" },
+    { name: "Abhik", title: "Head of Development", image: "https://www.sandbyte.site/assets/vipul.svg" },
     { name: "Ankan", title: "Marketing & Lead Expert", image: "https://www.sandbyte.site/assets/vishesh.svg" },
   ];
 

@@ -32,11 +32,35 @@ const Navbar = ({ theme, setTheme }) => {
         />
 
         {/* Desktop-Only Navigation Links */}
-        <div className="hidden sm:flex items-center gap-8 text-gray-700 dark:text-gray-200 text-sm">
-          <a href="#" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home</a>
-          <a href="#services" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Services</a>
-          <a href="#our-work" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Our Work</a>
-          <a href="#contact-us" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Contact Us</a>
+        <div className="hidden sm:flex items-center gap-3 text-gray-700 dark:text-gray-200 text-sm">
+          <a href="#" className="relative inline-block group px-4 py-2 transition-transform duration-300">
+            <span className="relative z-10 block uppercase font-sans font-semibold text-xs tracking-wider transition-colors duration-300 text-gray-700 dark:text-gray-200 group-hover:text-white dark:group-hover:text-gray-900">
+              Home
+            </span>
+            <span className="absolute inset-0 border-t border-b border-gray-900 dark:border-white transform scale-y-[2] opacity-0 transition-all duration-300 origin-center group-hover:scale-y-100 group-hover:opacity-100" />
+            <span className="absolute top-[1px] left-0 w-full h-[calc(100%-2px)] bg-gray-900 dark:bg-white transform scale-y-0 opacity-0 transition-all duration-300 origin-top group-hover:scale-y-100 group-hover:opacity-100" />
+          </a>
+          <a href="#services" className="relative inline-block group px-4 py-2 transition-transform duration-300">
+            <span className="relative z-10 block uppercase font-sans font-semibold text-xs tracking-wider transition-colors duration-300 text-gray-700 dark:text-gray-200 group-hover:text-white dark:group-hover:text-gray-900">
+              Services
+            </span>
+            <span className="absolute inset-0 border-t border-b border-gray-900 dark:border-white transform scale-y-[2] opacity-0 transition-all duration-300 origin-center group-hover:scale-y-100 group-hover:opacity-100" />
+            <span className="absolute top-[1px] left-0 w-full h-[calc(100%-2px)] bg-gray-900 dark:bg-white transform scale-y-0 opacity-0 transition-all duration-300 origin-top group-hover:scale-y-100 group-hover:opacity-100" />
+          </a>
+          <a href="#our-work" className="relative inline-block group px-4 py-2 transition-transform duration-300">
+            <span className="relative z-10 block uppercase font-sans font-semibold text-xs tracking-wider transition-colors duration-300 text-gray-700 dark:text-gray-200 group-hover:text-white dark:group-hover:text-gray-900">
+              Our Work
+            </span>
+            <span className="absolute inset-0 border-t border-b border-gray-900 dark:border-white transform scale-y-[2] opacity-0 transition-all duration-300 origin-center group-hover:scale-y-100 group-hover:opacity-100" />
+            <span className="absolute top-[1px] left-0 w-full h-[calc(100%-2px)] bg-gray-900 dark:bg-white transform scale-y-0 opacity-0 transition-all duration-300 origin-top group-hover:scale-y-100 group-hover:opacity-100" />
+          </a>
+          <a href="#contact-us" className="relative inline-block group px-4 py-2 transition-transform duration-300">
+            <span className="relative z-10 block uppercase font-sans font-semibold text-xs tracking-wider transition-colors duration-300 text-gray-700 dark:text-gray-200 group-hover:text-white dark:group-hover:text-gray-900">
+              Contact Us
+            </span>
+            <span className="absolute inset-0 border-t border-b border-gray-900 dark:border-white transform scale-y-[2] opacity-0 transition-all duration-300 origin-center group-hover:scale-y-100 group-hover:opacity-100" />
+            <span className="absolute top-[1px] left-0 w-full h-[calc(100%-2px)] bg-gray-900 dark:bg-white transform scale-y-0 opacity-0 transition-all duration-300 origin-top group-hover:scale-y-100 group-hover:opacity-100" />
+          </a>
         </div>
 
         {/* Action Controls Side */}
@@ -74,13 +98,14 @@ const Navbar = ({ theme, setTheme }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="fixed inset-0 bg-white/95 dark:bg-gray-950/95 backdrop-blur-2xl z-30 sm:hidden flex flex-col justify-center items-center"
           >
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.3 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
               className="flex flex-col items-center gap-8 text-center"
             >
               <a 
