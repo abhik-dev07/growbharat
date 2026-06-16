@@ -1,13 +1,29 @@
 import React from "react";
 import Title from "./Title";
 import { motion } from "framer-motion";
+import vivekImg from "../../public/icons/vivek.jpg";
+import abhikImg from "../../public/icons/abhik.jpg";
+import ankanImg from "../../public/icons/ankan.jpg";
 
 const Teams = () => {
   // Hardcoded team data based on your request
+
   const teamData = [
-    { name: "Vivek", title: "Founder & Fullstack Dev", image: "https://www.sandbyte.site/assets/karan.svg" },
-    { name: "Abhik", title: "Head of Development", image: "https://www.sandbyte.site/assets/vipul.svg" },
-    { name: "Ankan", title: "Marketing & Lead Expert", image: "https://www.sandbyte.site/assets/vishesh.svg" },
+    {
+      name: "Vivek",
+      title: "Founder & Fullstack Dev",
+      image: vivekImg,
+    },
+    {
+      name: "Abhik",
+      title: "Head of Development",
+      image: abhikImg,
+    },
+    {
+      name: "Ankan",
+      title: "Marketing & Lead Expert",
+      image: ankanImg,
+    },
   ];
 
   return (
@@ -33,14 +49,18 @@ const Teams = () => {
             key={index}
             className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-3 sm:gap-4 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 shadow-md shadow-gray-100/50 dark:shadow-none hover:scale-105 transition-all duration-300"
           >
-            <img 
-              src={team.image} 
-              className="w-14 h-14 sm:w-12 sm:h-12 rounded-full object-cover ring-2 ring-gray-100 dark:ring-gray-800" 
-              alt={team.name} 
+            <img
+              src={team.image}
+              className="w-14 h-14 sm:w-12 sm:h-12 rounded-full object-cover ring-2 ring-gray-100 dark:ring-gray-800"
+              alt={team.name}
             />
             <div className="flex-1 min-w-0">
-              <h3 className="font-bold text-sm sm:text-base truncate">{team.name}</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">{team.title}</p>
+              <h3 className="font-bold text-sm sm:text-base truncate">
+                {team.name}
+              </h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 line-clamp-2">
+                {team.title}
+              </p>
             </div>
           </motion.div>
         ))}
@@ -57,8 +77,12 @@ const Teams = () => {
             +
           </div>
           <div>
-            <h3 className="font-semibold text-sm text-gray-500 dark:text-gray-400">Expanding Soon</h3>
-            <p className="text-xs text-gray-400 dark:text-gray-500 hidden sm:block">We are growing!</p>
+            <h3 className="font-semibold text-sm text-gray-500 dark:text-gray-400">
+              Expanding Soon
+            </h3>
+            <p className="text-xs text-gray-400 dark:text-gray-500 hidden sm:block">
+              We are growing!
+            </p>
           </div>
         </motion.div>
       </div>
